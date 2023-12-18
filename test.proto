@@ -1,0 +1,21 @@
+// This is a proto example file 
+
+// declare version 
+syntax = "proto3";
+
+option go_package = "./main";
+
+// declare structure
+// start with message
+// properties are numbered
+// end with semicolon
+message Employee {
+    int32 id = 1;
+    string name = 2;
+    float salary = 3;
+}
+
+// repeated is an array equivalent
+message Employees {
+    repeated Employee employees = 1;
+}
