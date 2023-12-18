@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 
 	"google.golang.org/grpc"
@@ -25,8 +26,22 @@ func main() {
 	}
 
 	c := pb.NewGreetServiceClient(conn)
+
+	// uncomment the following line to enable unary request
 	// doGreet(c, "Ilija")
-	doGreetManyTimes(c, "Ilija")
+
+	// uncomment the following line to enable server streaming request
+	// doGreetManyTimes(c, "Ilija")
+
+	// uncomment the following line to enable client streaming request
+	err = doLongGreet(
+		context.Background(),
+		c,
+		[]string{"Tim", "Anna", "Jon", "Jack", "Jill", "Flo", "Hun", "Alma", "Nat", "Em"},
+	)
+	if err != nil {
+		log.Fatalf("cannot do long greet: %v", err)
+	}
 
 	defer conn.Close()
 }
