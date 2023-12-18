@@ -53,6 +53,7 @@ They are distinguished by the keyword **stream**
 - has `stream` in response signature in proto file, f.e. `stream GreetResponse`
 - client sends one request, server returns many responses
 - handling on client side:
+    - create client
     - send request -> function returns stream object
     - make for loop using `stream.Recv()`
     - check for `io.Eof` error -> break loop
@@ -60,3 +61,18 @@ They are distinguished by the keyword **stream**
 - handling on server side:
     - receive request
     - use for loop and `stream.Send()` to send response
+
+## Client Streaming
+- has `stream` in request signature in proto file, f.e. `stream GreetRequest`
+- client sends many responses, server returns one response
+- handling on client side:
+    - create client
+    - client sends requests with `.Send(...)`
+    - uses `stream.CloseAndRecv()` to close the connection
+    - receives server response from the previous function
+- handling on server side:
+    - receive requests using for loop and `stream.Recv()`
+    - check for `io.Eof` error -> break loop
+    - other error -> handle it
+    - uses `stream.SendAndClose()` to send response
+
