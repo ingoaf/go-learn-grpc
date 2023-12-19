@@ -43,11 +43,19 @@ func main() {
 	// }
 	// log.Printf("The response is: %v", decomposition)
 
-	var numbersForAverageCalculation []int64 = []int64{1, 2, 3, 4}
-	average, err := calculateAverage(context.Background(), calculatorServiceClient, numbersForAverageCalculation)
-	if err != nil {
-		log.Fatalf("cannot calculate average of %v: %v", numbersForAverageCalculation, err)
-	}
-	log.Printf("The average is: %f", average)
+	// var numbersForAverageCalculation []int64 = []int64{1, 2, 3, 4}
+	// average, err := calculateAverage(context.Background(), calculatorServiceClient, numbersForAverageCalculation)
+	// if err != nil {
+	// 	log.Fatalf("cannot calculate average of %v: %v", numbersForAverageCalculation, err)
+	// }
+	// log.Printf("The average is: %f", average)
 
+	numbersForMaximumCalculation := []float64{1, 5, 3, 6, 2, 20}
+	maximums, err := calculateCurrentMaximum(
+		context.Background(), calculatorServiceClient, numbersForMaximumCalculation,
+	)
+	if err != nil {
+		log.Fatalf("can not calculate maximums: %v", maximums)
+	}
+	log.Printf("\n Numbers: %v \n Maximums: %v", numbersForMaximumCalculation, maximums)
 }

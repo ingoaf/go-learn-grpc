@@ -34,13 +34,19 @@ func main() {
 	// doGreetManyTimes(c, "Ilija")
 
 	// uncomment the following line to enable client streaming request
-	err = doLongGreet(
-		context.Background(),
-		c,
-		[]string{"Tim", "Anna", "Jon", "Jack", "Jill", "Flo", "Hun", "Alma", "Nat", "Em"},
-	)
+	// err = doLongGreet(
+	// 	context.Background(),
+	// 	c,
+	// 	[]string{"Tim", "Anna", "Jon", "Jack", "Jill", "Flo", "Hun", "Alma", "Nat", "Em"},
+	// )
+	// if err != nil {
+	// 	log.Fatalf("cannot do long greet: %v", err)
+	// }
+
+	// uncomment the following line to enable bi-directional streaming request
+	err = doGreetEveryone(context.Background(), c, []string{"Tom", "Emma", "Paul"})
 	if err != nil {
-		log.Fatalf("cannot do long greet: %v", err)
+		log.Fatalf("cannot greet everyone: %v", err)
 	}
 
 	defer conn.Close()

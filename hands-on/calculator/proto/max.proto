@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package calculator;
+
+option go_package = "github.com/ingoaf/learning-go-grpc/hands-on/calculator/proto";
+
+message MaxRequest {
+    double number = 1;
+}
+
+message MaxResponse {
+    double maximum = 1;
+}
