@@ -76,3 +76,25 @@ They are distinguished by the keyword **stream**
     - other error -> handle it
     - uses `stream.SendAndClose()` to send response
 
+## Bi-directional Streaming
+- has `stream` in request and response signature in proto file
+- client sends many responses, server returns many responses
+- handling on server side:
+    - reseive requests using for loop and `stream.Recv()`
+    - check for `io.Eof` error -> break loop
+    - other error -> handle it
+    - use `stream.Send()` to send response
+- handling on client side:
+    - create client
+    - client sends and receive response each in a goroutine
+    - for this a channel is created
+    - in sending goroutine: 
+        - use `stream.Send()` to send
+        - after finish close with `stream.CloseSend()`
+    - in receiving goroutine:
+        - use `stream.Recv()` to receive responses from server
+        - check for `io.Eof` error -> break loop
+        - other error -> handle it
+        - close previously created channel
+    - channel blocks at the end until closed
+
