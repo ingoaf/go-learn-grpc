@@ -9,15 +9,14 @@ import (
 )
 
 func (s Server) Average(stream pb.CalculatorService_AverageServer) error {
-	totalSum := 0
-	count := 0
+	var totalSum, count float64
 
 	for {
 		req, err := stream.Recv()
 
 		if err == io.EOF {
 			stream.SendAndClose(&pb.AverageResponse{
-				Number: float32(totalSum) / float32(count),
+				Number: totalSum / count,
 			})
 			return nil
 		}
@@ -27,7 +26,7 @@ func (s Server) Average(stream pb.CalculatorService_AverageServer) error {
 		}
 
 		fmt.Printf("Received from client: %d \n", req.Number)
-		totalSum += int(req.Number)
+		totalSum += float64(req.Number)
 		count += 1
 	}
 }

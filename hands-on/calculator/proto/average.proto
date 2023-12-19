@@ -9,5 +9,5 @@ message AverageRequest {
 }
 
 message AverageResponse {
-    float number = 1;
+    double number = 1;
 }
