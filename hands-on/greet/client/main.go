@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"log"
+	"time"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -44,9 +45,19 @@ func main() {
 	// }
 
 	// uncomment the following line to enable bi-directional streaming request
-	err = doGreetEveryone(context.Background(), c, []string{"Tom", "Emma", "Paul"})
+	// err = doGreetEveryone(context.Background(), c, []string{"Tom", "Emma", "Paul"})
+	// if err != nil {
+	// 	log.Fatalf("cannot greet everyone: %v", err)
+	// }
+
+	// uncomment the following line to enable timeout example
+	contextGreetWithDeadline, cancelGreetWithDeadline := context.WithTimeout(
+		context.Background(), 1*time.Second)
+	defer cancelGreetWithDeadline()
+
+	err = greetWithDeadline(contextGreetWithDeadline, c, "Thomas")
 	if err != nil {
-		log.Fatalf("cannot greet everyone: %v", err)
+		log.Fatalf("can not greet with deadline: %v", err)
 	}
 
 	defer conn.Close()
