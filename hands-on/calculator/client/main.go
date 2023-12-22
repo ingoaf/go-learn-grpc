@@ -50,12 +50,20 @@ func main() {
 	// }
 	// log.Printf("The average is: %f", average)
 
-	numbersForMaximumCalculation := []float64{1, 5, 3, 6, 2, 20}
-	maximums, err := calculateCurrentMaximum(
-		context.Background(), calculatorServiceClient, numbersForMaximumCalculation,
-	)
+	// numbersForMaximumCalculation := []float64{1, 5, 3, 6, 2, 20}
+	// maximums, err := calculateCurrentMaximum(
+	// 	context.Background(), calculatorServiceClient, numbersForMaximumCalculation,
+	// )
+	// if err != nil {
+	// 	log.Fatalf("can not calculate maximums: %v", maximums)
+	// }
+	// log.Printf("\n Numbers: %v \n Maximums: %v", numbersForMaximumCalculation, maximums)
+
+	var number int32 = -2
+	sqrt, err := calculateSquareRoot(context.Background(), calculatorServiceClient, number)
 	if err != nil {
-		log.Fatalf("can not calculate maximums: %v", maximums)
+		log.Fatalf("can not calculate square root: %v", err)
 	}
-	log.Printf("\n Numbers: %v \n Maximums: %v", numbersForMaximumCalculation, maximums)
+	log.Printf("The square root of %d is %f", number, sqrt)
+
 }
