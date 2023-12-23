@@ -10,8 +10,8 @@ import (
 )
 
 const (
-	serverCertFile      = "./ssl/server.crt"
-	serverPublicKeyFile = "./ssl/server.pem"
+	serverCertFile       = "./ssl/server.crt"
+	serverPrivateKeyFile = "./ssl/server.pem"
 )
 
 var addr string = "localhost:50051"
@@ -33,7 +33,7 @@ func main() {
 	grpcOpts := []grpc.ServerOption{}
 	tls := true
 	if tls {
-		creds, err := credentials.NewServerTLSFromFile(serverCertFile, serverPublicKeyFile)
+		creds, err := credentials.NewServerTLSFromFile(serverCertFile, serverPrivateKeyFile)
 		if err != nil {
 			log.Fatalf("cannot load server certificate (did you run the script in ssh folder?): %v", err)
 		}

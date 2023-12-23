@@ -6,6 +6,7 @@ import (
 
 	pb "github.com/ingoaf/learning-go-grpc/hands-on/calculator/proto"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 var addr string = "localhost:50051"
@@ -23,6 +24,7 @@ func main() {
 	srv := Server{}
 	s := grpc.NewServer()
 	pb.RegisterCalculatorServiceServer(s, srv)
+	reflection.Register(s)
 
 	log.Println("Serving listener...")
 

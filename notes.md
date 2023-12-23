@@ -117,3 +117,14 @@ They are distinguished by the keyword **stream**
     - analyze the error via `e.Codes()` and `codes.DeadlineExceeded` to check if the server timed out
 - on server side:
     - analyze the error via `ctx.Error()` and `codes.DeadlineExceeded` to check if the client canceled
+
+## TLS
+Idea: secure connection by f.e. loading certs from files
+- on server side:
+    - create `[]grpc.ServerOption{}`
+    - load cert and private key of server with `credentials.NewServerTLSFromFile`
+    - add the options while calling `grpc.NewServer`
+- on client side:
+    - create `[]grpc.DialOption{}`
+    - load CA cert with `NewClientTLSFromFile`
+    - add the options while callind `grpc.Dial`
