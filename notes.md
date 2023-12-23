@@ -108,3 +108,12 @@ They are distinguished by the keyword **stream**
     - check error with `e, ok := status.FromError()`
         - if ok -> grpc Error
         - check the code with `e.Codes()` 
+
+## Deadlines/Timeouts
+- we can introduce timeouts on gRPC calls using `context.Context`
+- on client side:
+    - introduce a context with timeout and pass it to the client
+    - call the gRPC server, pass context
+    - analyze the error via `e.Codes()` and `codes.DeadlineExceeded` to check if the server timed out
+- on server side:
+    - analyze the error via `ctx.Error()` and `codes.DeadlineExceeded` to check if the client canceled
