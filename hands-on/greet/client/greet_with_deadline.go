@@ -17,13 +17,11 @@ func greetWithDeadline(ctx context.Context, c pb.GreetServiceClient, name string
 
 	if err != nil {
 		e, grpcError := status.FromError(err)
-		if grpcError {
-			if e.Code() == codes.DeadlineExceeded {
-				return fmt.Errorf("server took too long to respond, client canceled: %w", err)
-			}
-		} else {
-			return err
+		if grpcError && e.Code() == codes.DeadlineExceeded {
+			return fmt.Errorf("server took too long to respond, client canceled: %w", err)
 		}
+
+		return err
 	}
 
 	log.Printf("Response: %v", res.Result)
