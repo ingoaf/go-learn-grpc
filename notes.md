@@ -38,7 +38,7 @@ They are distinguished by the keyword **stream**
 - create new client from generated code
 - handle response (f.e. print)
 
-## Server
+### Server
 - create tcp listener on address and port
 - create Service with custom functionality, add method which implements custom functionality
 - create grpc Server
@@ -98,3 +98,13 @@ They are distinguished by the keyword **stream**
         - close previously created channel
     - channel blocks at the end until closed
 
+## Grpc Errors and Error Codes
+- we can send error codes along with errors to specify certain errors (similar idea to http status codes)
+- on server side:
+    - use `status.Errorf()` from `google.golang.org/grpc/status` to provide an error along with an error code
+    - use `codes.InvalidArgument` from `"google.golang.org/grpc/codes` to specify what went wrong
+- on client side:
+    - make a call, handle the error
+    - check error with `e, ok := status.FromError()`
+        - if ok -> grpc Error
+        - check the code with `e.Codes()` 
