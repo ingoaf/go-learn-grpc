@@ -128,3 +128,13 @@ Idea: secure connection by f.e. loading certs from files
     - create `[]grpc.DialOption{}`
     - load CA cert with `NewClientTLSFromFile`
     - add the options while callind `grpc.Dial`
+
+## Reflection
+- gRPC reflection allows to list all Methods/Requests/Responses which are available on the server (similar to automatic swagger generation in REST)
+- to enable reflection:
+    - import `google.golang.org/grpc/reflection`
+    - use `reflection.Register(server)` after registering your service in the grpc Server
+
+### Evans
+- Evans is a grpc client CLI tool which makes use of reflection
+- example command: `evans --host localhost --port 50051 --reflection repl`
